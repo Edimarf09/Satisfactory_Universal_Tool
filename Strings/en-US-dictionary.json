@@ -1,0 +1,17 @@
+{
+  "tab.balancer": "Belt Balancer",
+  "tab.trains": "Trains & Vehicles",
+  "tab.wiki": "Wiki",
+  "tab.planner": "Factory Planner",
+  "tab.map": "Map",
+  "common.calculate": "Calculate",
+  "common.result": "Result",
+  "balancer.inputs": "Inputs (items/min)",
+  "balancer.outputs": "Outputs (items/min)",
+  "balancer.tier": "Belt tier:",
+  "train.demand": "Factory demand (items/min)",
+  "train.stackSize": "Item stack size (most = 100)",
+  "train.vehicle": "Vehicle:",
+  "train.roundTrip": "Round-trip time (seconds)",
+  "train.roundTripHint": "Measure in-game with a stopwatch, between one 'choo' and the next at the same station."
+}

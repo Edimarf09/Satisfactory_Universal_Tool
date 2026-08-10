@@ -1,0 +1,17 @@
+{
+  "tab.balancer": "Balanceador de Esteiras",
+  "tab.trains": "Trens & Veículos",
+  "tab.wiki": "Wiki",
+  "tab.planner": "Planejador de Fábricas",
+  "tab.map": "Mapa",
+  "common.calculate": "Calcular",
+  "common.result": "Resultado",
+  "balancer.inputs": "Entradas (itens/min)",
+  "balancer.outputs": "Saídas (itens/min)",
+  "balancer.tier": "Tier da esteira:",
+  "train.demand": "Demanda da fábrica (itens/min)",
+  "train.stackSize": "Tamanho da pilha do item (a maioria = 100)",
+  "train.vehicle": "Veículo:",
+  "train.roundTrip": "Tempo de ida e volta da rota (segundos)",
+  "train.roundTripHint": "Meça no jogo com cronômetro, entre um 'choo' e o próximo na mesma estação."
+}

@@ -1,0 +1,45 @@
+<UserControl x:Class="Satisfactory_Universal_Tool.Views.TrainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:Satisfactory_Universal_Tool.Localization">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,10">
+            <TextBlock Text="{loc:Tr train.demand}" FontWeight="SemiBold"/>
+            <TextBox Text="{Binding DemandText}" Width="160" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,10">
+            <TextBlock Text="{loc:Tr train.stackSize}" FontWeight="SemiBold"/>
+            <TextBox Text="{Binding StackSizeText}" Width="160" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10" VerticalAlignment="Center">
+            <TextBlock Text="{loc:Tr train.vehicle}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <ComboBox ItemsSource="{Binding Vehicles}" SelectedItem="{Binding SelectedVehicle}"
+                      DisplayMemberPath="Name" Width="180"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Margin="0,0,0,12">
+            <TextBlock Text="{loc:Tr train.roundTrip}" FontWeight="SemiBold"/>
+            <TextBox Text="{Binding RoundTripText}" Width="160" HorizontalAlignment="Left"/>
+            <TextBlock Text="{loc:Tr train.roundTripHint}"
+                       FontSize="11" Foreground="Gray" Margin="0,2,0,0" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <Button Grid.Row="4" Content="{loc:Tr common.calculate}" Command="{Binding CalculateCommand}"
+                Width="120" HorizontalAlignment="Left" Padding="8,4" Margin="0,0,0,12"/>
+
+        <TextBox Grid.Row="5" Text="{Binding ResultText, Mode=OneWay}" IsReadOnly="True"
+                 AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                 FontFamily="Consolas" Background="#F5F5F5"/>
+    </Grid>
+</UserControl>
