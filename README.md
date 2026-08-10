@@ -1,28 +1,56 @@
-# TERMOS DE USO E LICENÇA
-### **Satisfactory_Universal_Tool**
+# Satisfactory_Universal_Tool
 
-* **Autor do Software:** Édimo Augusto
-* **Autor dos Assets e Dados:** Coffee Stain Studios (Todos os direitos reservados à desenvolvedora original)
-* **Ano de Publicação:** 2026
+Bem-vindo ao repositório do **Satisfactory_Universal_Tool**! Este projeto é um utilitário de desktop modular desenvolvido de forma independente para auxiliar na automação, planejamento avançado e otimização de linhas de produção no universo do jogo *Satisfactory*.
 
 ---
 
-### 1. Propriedade Intelectual e Proteção de Código
-Este software e seu código-fonte original são protegidos por leis de direitos autorais. O autor do programa, **Édimo Augusto**, retém a totalidade dos direitos de propriedade intelectual sobre a lógica, arquitetura e código inédito desenvolvido, operando sob o regime de **Todos os Direitos Reservados (All Rights Reserved)**. 
+## 📄 Termos de Uso e Licença
 
-A publicação deste código em um repositório público serve estritamente para fins de transparência, aprendizado, auditoria da comunidade e portfólio acadêmico. A disponibilização pública **não concede** permissão para cópia, clonagem, redistribuição, modificação não autorizada ou comercialização de partes ou da totalidade deste projeto por terceiros.
+Este projeto é disponibilizado publicamente para fins de transparência, aprendizado e demonstração de portfólio. No entanto, o código-fonte original está sob o regime de **Todos os Direitos Reservados**.
 
-### 2. Assets e Propriedades de Terceiros
-Fica expressamente reconhecido que os dados do jogo, nomes, elementos visuais, fórmulas de fábrica e demais propriedades intelectuais ligadas ao jogo *Satisfactory* pertencem exclusivamente à **Coffee Stain Studios**. Este projeto não possui fins lucrativos e é categorizado como uma ferramenta complementar da comunidade, sem qualquer endosso oficial ou vínculo formal com a desenvolvedora original.
+* 🛑 **Código Protegido:** Não é permitida a cópia, clonagem, redistribuição ou comercialização do código deste repositório sem autorização prévia por escrito.
+* 🎮 **Assets e Propriedades:** Todos os dados, fórmulas e referências associadas ao jogo pertencem exclusivamente à **Coffee Stain Studios**.
+* 🤝 **Quer colaborar ou usar o código?** A intenção do projeto é apoiar e enriquecer a comunidade. Se você encontrou alguma solução interessante ou quer usar trechos em seu próprio utilitário ou mod, **basta vir conversar comigo!** Entrando em contato, nós alinhamos a sua ideia e podemos formalizar uma permissão ou licença específica sob medida.
 
-### 3. Cláusula de Abertura e Colaboração (Basta Conversar!)
-Embora os direitos legais permaneçam estritamente reservados para evitar abusos, plágios e cópias indevidas, o autor apoia o ecossistema de ferramentas criadas pela comunidade e o desenvolvimento colaborativo.
-
-Se você tiver interesse em utilizar partes deste código, fazer um fork legítimo para continuar o desenvolvimento, ou integrar esta ferramenta a outro projeto comunitário não oficial:
-> **Fale diretamente com o autor (Édimo Augusto). Conversando, nós podemos alinhar a sua ideia, analisar os limites de uso e formalizar uma autorização específica ou licença sob medida que funcione para ambas as partes.**
-
-### 4. Isenção de Responsabilidade
-Este software é fornecido "no estado em que se encontra" (*as is*), sem garantias de qualquer natureza, expressas ou implícitas, incluindo estabilidade, desempenho ou adequação a um propósito específico. O autor não se responsabiliza por quaisquer falhas, bugs ou danos decorrentes do uso direto ou indireto desta ferramenta.
+> ℹ️ O documento legal completo e detalhado com todas as diretrizes de propriedade intelectual está anexado na raiz deste repositório no arquivo `LICENSE_Satisfactory_Universal_Tool.pdf`.
 
 ---
-*Satisfactory_Universal_Tool — Copyright © 2026 Édimo Augusto. Todos os direitos reservados.*
+
+## 🛠️ Tecnologias e Arquitetura
+
+O projeto foi construído sobre a plataforma moderna do **.NET 10** para Windows, utilizando um padrão de arquitetura robusto voltado para o alto desempenho gráfico e computacional.
+
+* **Interface e UI Componentizada:** Desenvolvido em **WPF / C# (Targeting .net10.0-windows)** com a biblioteca **Nodify**, fornecendo um editor visual avançado baseado em nós de alta performance para o mapeamento gráfico de fábricas.
+* **Arquitetura de Código:** Implementado sob o padrão **MVVM (Model-View-ViewModel)** com o auxílio do **CommunityToolkit.Mvvm**, garantindo desacoplamento completo, reatividade eficiente na interface e código limpo.
+* **Motor de Otimização Matemática:** Utilização da biblioteca **Google.OrTools** para resolver modelos complexos de programação linear, fluxos em redes e restrições matemáticas envolvidas no cálculo de cadeias de produção e eficiência de nós de fábricas.
+
+---
+
+## 🚀 Funcionalidades em Desenvolvimento
+
+O software está em fase ativa de engenharia e contempla as seguintes ferramentas integradas até o momento:
+
+1. **Planejador de Fábricas (Factory Planner):** Sistema visual baseado em nós (*Nodify*) integrado ao *Google.OrTools* para modelagem de fluxos de insumos e balanceamento automático de produções.
+2. **Balanceador de Esteiras (Belt Balancer Calculator):** Algoritmos dedicados para divisão matemática e convergência exata de itens por minuto em distribuições complexas de esteiras.
+3. **Gerenciador de Veículos por Rota (Logistics Manager):** Módulo de controle e previsão de tempos, consumo e eficiência para transporte de cargas e rotas logísticas.
+4. **Mapa Interativo (Interactive Map):** Interface geográfica para localização de nós de recursos, geologia e planejamento espacial de bases.
+5. **Wiki Offline:** Banco de dados interno otimizado com acesso rápido a receitas (padrão e alternativas), construções e taxas de conversão de itens sem dependência de internet.
+
+---
+
+## 💭 Ideias Futuras
+
+Algumas ideias futuras. Deixando claro que são ideias, ainda nem sei se alguma coisa dai é possivel
+
+- mapa interativo integrado com o save do jogo para saber o que voce colotou (Ex: esferas de mercer, HDs, etc...)
+- ver quasi receitas alternativas o save ja tem desbloqueado
+- editor de save, editar tanto o mapa quanto as coisas dentro do save
+
+---
+
+## 📬 Contato
+
+Se você gostou do projeto, quer sugerir ideias de otimização matemática para o planejador, ou precisa de autorização para usar trechos do código, fique à vontade para abrir uma *Issue* ou me procurar diretamente!
+
+* **Autor:** Édimo Augusto
+* **Ano:** 2026
