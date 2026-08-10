@@ -1,4 +1,3 @@
-
 # TERMOS DE USO E LICENÇA
 ### **Satisfactory_Universal_Tool**
 
@@ -27,5 +26,3 @@ Este software é fornecido "no estado em que se encontra" (*as is*), sem garanti
 
 ---
 *Satisfactory_Universal_Tool — Copyright © 2026 Édimo Augusto. Todos os direitos reservados.*
-LICENSE.md
-Exibindo LICENSE.md.
