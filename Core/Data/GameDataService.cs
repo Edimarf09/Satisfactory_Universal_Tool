@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Globalization;
+using System.Text;
 
 namespace Satisfactory_Universal_Tool.Core.Data;
 
@@ -24,13 +26,23 @@ public class GameDataService
 
     public List<GameItem> Search(string query)
     {
-        if (string.IsNullOrWhiteSpace(query))
-            return _items.OrderBy(i => i.DisplayName).Take(200).ToList();
+        var q = Normalize(query);
+        var filtered = string.IsNullOrWhiteSpace(q)
+            ? _items
+            : _items.Where(i => Normalize(i.DisplayName).Contains(q));
 
-        return _items
-            .Where(i => i.DisplayName.Contains(query, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(i => i.DisplayName)
-            .Take(200)
-            .ToList();
+        return filtered.OrderBy(i => i.DisplayName).Take(500).ToList();
+    }
+
+    // "Ácido Sulfúrico" -> "acido sulfurico" : ignora acento e caixa
+    public static string Normalize(string s)
+    {
+        if (string.IsNullOrEmpty(s)) return "";
+        var formD = s.Normalize(NormalizationForm.FormD);
+        var sb = new StringBuilder(formD.Length);
+        foreach (var ch in formD)
+            if (CharUnicodeInfo.GetUnicodeCategory(ch) != UnicodeCategory.NonSpacingMark)
+                sb.Append(ch);
+        return sb.ToString().Normalize(NormalizationForm.FormC).ToLowerInvariant();
     }
 }

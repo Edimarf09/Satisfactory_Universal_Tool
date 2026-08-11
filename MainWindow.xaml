@@ -15,8 +15,7 @@
         </TabItem>
 
         <TabItem Header="{loc:Tr tab.wiki}">
-            <TextBlock Text="🚧 Wiki — em construção" FontSize="16" Foreground="Gray"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <views:WikiView DataContext="{Binding Wiki}"/>
         </TabItem>
 
         <TabItem Header="{loc:Tr tab.planner}">
