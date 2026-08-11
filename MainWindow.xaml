@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:Satisfactory_Universal_Tool.Views"
         xmlns:loc="clr-namespace:Satisfactory_Universal_Tool.Localization"
-        Title="Satisfactory Universal Tool" Height="600" Width="720">
+        Title="Satisfactory Universal Tool" Height="576" Width="1024">
     <TabControl Margin="8">
 
         <TabItem Header="{loc:Tr tab.balancer}">
@@ -19,8 +19,7 @@
         </TabItem>
 
         <TabItem Header="{loc:Tr tab.planner}">
-            <TextBlock Text="🚧 Planejador (nodes) — em construção" FontSize="16" Foreground="Gray"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <views:PlannerView DataContext="{Binding Planner}"/>
         </TabItem>
 
         <TabItem Header="{loc:Tr tab.map}">
