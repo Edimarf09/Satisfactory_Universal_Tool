@@ -9,42 +9,41 @@
 
         <nodify:NodifyEditor ItemsSource="{Binding Nodes}"
                              Connections="{Binding Connections}"
-                             PendingConnection="{Binding PendingConnection}">
+                             ConnectionCompletedCommand="{Binding CreateConnectionCommand}">
 
-            <!-- posição de cada nó no canvas -->
             <nodify:NodifyEditor.ItemContainerStyle>
                 <Style TargetType="{x:Type nodify:ItemContainer}">
                     <Setter Property="Location" Value="{Binding Location, Mode=TwoWay}"/>
                 </Style>
             </nodify:NodifyEditor.ItemContainerStyle>
 
-            <!-- como cada nó é desenhado -->
             <nodify:NodifyEditor.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:PlannerNodeViewModel}">
-                    <nodify:Node Header="{Binding Title}">
-                        <nodify:Node.Input>
-                            <nodify:NodeInput Header="{Binding Input.Title}" IsConnected="{Binding Input.IsConnected}"/>
-                        </nodify:Node.Input>
-                        <nodify:Node.Output>
-                            <nodify:NodeOutput Header="{Binding Output.Title}" IsConnected="{Binding Output.IsConnected}"/>
-                        </nodify:Node.Output>
+                    <nodify:Node Header="{Binding Title}"
+                                 Input="{Binding Input}"
+                                 Output="{Binding Output}">
+                        <nodify:Node.InputConnectorTemplate>
+                            <DataTemplate DataType="{x:Type vm:ConnectorViewModel}">
+                                <nodify:NodeInput Header="{Binding Title}"
+                                                  IsConnected="{Binding IsConnected}"
+                                                  Anchor="{Binding Anchor, Mode=OneWayToSource}"/>
+                            </DataTemplate>
+                        </nodify:Node.InputConnectorTemplate>
+                        <nodify:Node.OutputConnectorTemplate>
+                            <DataTemplate DataType="{x:Type vm:ConnectorViewModel}">
+                                <nodify:NodeOutput Header="{Binding Title}"
+                                                   IsConnected="{Binding IsConnected}"
+                                                   Anchor="{Binding Anchor, Mode=OneWayToSource}"/>
+                            </DataTemplate>
+                        </nodify:Node.OutputConnectorTemplate>
                     </nodify:Node>
                 </DataTemplate>
             </nodify:NodifyEditor.ItemTemplate>
 
-            <!-- a linha que nasce ao arrastar de um conector -->
-            <nodify:NodifyEditor.PendingConnectionTemplate>
-                <DataTemplate DataType="{x:Type vm:PendingConnectionViewModel}">
-                    <nodify:PendingConnection StartedCommand="{Binding StartCommand}"
-                                              CompletedCommand="{Binding FinishCommand}"
-                                              AllowOnlyConnectors="True"/>
-                </DataTemplate>
-            </nodify:NodifyEditor.PendingConnectionTemplate>
-
-            <!-- como cada ligação é desenhada -->
             <nodify:NodifyEditor.ConnectionTemplate>
                 <DataTemplate DataType="{x:Type vm:ConnectionViewModel}">
-                    <nodify:Connection Source="{Binding Source}" Target="{Binding Target}"/>
+                    <nodify:Connection Source="{Binding Source.Anchor}"
+                                       Target="{Binding Target.Anchor}"/>
                 </DataTemplate>
             </nodify:NodifyEditor.ConnectionTemplate>
 

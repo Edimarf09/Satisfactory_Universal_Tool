@@ -15,6 +15,7 @@
     <Content Include="CommunityResources\Docs\**\*" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Strings\**\*.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="logo\**\*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Map\**\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

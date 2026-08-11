@@ -23,6 +23,12 @@ public partial class App : Application
         Loc.SetLanguage(lang, stringsFolder);   // carrega os textos da interface
         GameData.Load(docsFolder, lang);         // carrega os itens do jogo
 
+        DispatcherUnhandledException += (s, ex) =>
+        {
+            System.Windows.MessageBox.Show(ex.Exception.ToString(), "Erro não tratado");
+            ex.Handled = true;
+        };
+
         new MainWindow().Show();                 // abre a janela DEPOIS de carregar
     }
 }

@@ -23,8 +23,7 @@
         </TabItem>
 
         <TabItem Header="{loc:Tr tab.map}">
-            <TextBlock Text="🚧 Mapa interativo — em construção" FontSize="16" Foreground="Gray"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <views:MapView DataContext="{Binding Map}"/>
         </TabItem>
 
     </TabControl>

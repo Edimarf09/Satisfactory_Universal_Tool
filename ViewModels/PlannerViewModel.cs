@@ -10,14 +10,10 @@ public partial class PlannerViewModel : ObservableObject
     public ObservableCollection<PlannerNodeViewModel> Nodes { get; } = new();
     public ObservableCollection<ConnectionViewModel> Connections { get; } = new();
 
-    // conector "pendente" enquanto o usuário arrasta uma linha da bolinha
-    [ObservableProperty] private PendingConnectionViewModel _pendingConnection;
+    [ObservableProperty] private ConnectorViewModel? _pendingSource;
 
     public PlannerViewModel()
     {
-        PendingConnection = new PendingConnectionViewModel(this);
-
-        // dois nós de exemplo pra você ver algo na tela
         Nodes.Add(new PlannerNodeViewModel { Title = "Minério de Ferro", Location = new Point(60, 80) });
         Nodes.Add(new PlannerNodeViewModel { Title = "Constructor",       Location = new Point(360, 160) });
     }
@@ -26,30 +22,22 @@ public partial class PlannerViewModel : ObservableObject
     private void AddNode() =>
         Nodes.Add(new PlannerNodeViewModel { Title = "Novo nó", Location = new Point(120, 120) });
 
-    public void Connect(ConnectorViewModel source, ConnectorViewModel target)
-    {
-        Connections.Add(new ConnectionViewModel { Source = source, Target = target });
-        source.IsConnected = true;
-        target.IsConnected = true;
-    }
-}
-
-// Gerencia a linha que nasce quando você arrasta de um conector
-public partial class PendingConnectionViewModel : ObservableObject
-{
-    private readonly PlannerViewModel _editor;
-    [ObservableProperty] private ConnectorViewModel? _source;
-
-    public PendingConnectionViewModel(PlannerViewModel editor) => _editor = editor;
-
+    // chamado quando você começa a arrastar de um conector
     [RelayCommand]
-    private void Start(ConnectorViewModel source) => Source = source;
+    private void StartConnection(ConnectorViewModel source) => PendingSource = source;
 
+    // chamado quando você solta em cima de outro conector
+    // O Nodify entrega (origem, alvo) como uma tupla (object, object)
     [RelayCommand]
-    private void Finish(ConnectorViewModel? target)
+    private void CreateConnection((object? Source, object? Target) p)
     {
-        if (Source != null && target != null && Source != target)
-            _editor.Connect(Source, target);
-        Source = null;
+        if (p.Source is ConnectorViewModel source &&
+            p.Target is ConnectorViewModel target &&
+            source != target)
+        {
+            Connections.Add(new ConnectionViewModel { Source = source, Target = target });
+            source.IsConnected = true;
+            target.IsConnected = true;
+        }
     }
 }

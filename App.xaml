@@ -1,12 +1,15 @@
 ﻿<Application x:Class="Satisfactory_Universal_Tool.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Satisfactory_Universal_Tool">
+             xmlns:local="clr-namespace:Satisfactory_Universal_Tool"
+             xmlns:conv="clr-namespace:Satisfactory_Universal_Tool.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Nodify;component/Themes/Dark.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVis"/>
+            <conv:BoolToVisibilityConverter x:Key="InverseBoolToVis" Invert="True"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

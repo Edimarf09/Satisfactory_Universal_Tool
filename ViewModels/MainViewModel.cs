@@ -6,4 +6,5 @@ public class MainViewModel
     public TrainViewModel Train { get; } = new();
     public WikiViewModel Wiki { get; } = new();
     public PlannerViewModel Planner { get; } = new();
+    public MapViewModel Map { get; } = new();
 }
