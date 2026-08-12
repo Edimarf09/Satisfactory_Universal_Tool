@@ -8,16 +8,58 @@
                    TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"
                    Visibility="{Binding HasMap, Converter={StaticResource InverseBoolToVis}}"/>
 
-        <!-- área de mapa: arrasta pra mover, scroll pra zoom -->
-        <ScrollViewer x:Name="Scroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
-                      Visibility="{Binding HasMap, Converter={StaticResource BoolToVis}}"
-                      PreviewMouseWheel="Scroll_Zoom">
-            <Image Source="{Binding MapImagePath}" Stretch="None"
-                   RenderOptions.BitmapScalingMode="HighQuality">
-                <Image.LayoutTransform>
-                    <ScaleTransform x:Name="MapScale" ScaleX="1" ScaleY="1"/>
-                </Image.LayoutTransform>
-            </Image>
-        </ScrollViewer>
+        <!-- Viewport: recorta o mapa, captura mouse/scroll -->
+        <Grid x:Name="Viewport" ClipToBounds="True" Background="Transparent"
+              Visibility="{Binding HasMap, Converter={StaticResource BoolToVis}}"
+              PreviewMouseWheel="Viewport_Zoom"
+              MouseLeftButtonDown="Map_MouseDown"
+              MouseMove="Viewport_MouseMove"
+              MouseLeftButtonUp="Map_MouseUp"
+              Loaded="Viewport_Loaded"
+              SizeChanged="Viewport_SizeChanged">
+
+            <!-- Canvas de tamanho FIXO 8192x8192 com as 4 fatias em coords exatas.
+                 Ordem (X=coluna, Y=linha):  0-0 | 1-0
+                                             0-1 | 1-1
+                 Zoom + Pan por MatrixTransform (move em qualquer zoom). -->
+            <Canvas x:Name="MapRoot" Width="8192" Height="8192"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" UseLayoutRounding="True">
+                <Canvas.RenderTransform>
+                    <MatrixTransform x:Name="MapMatrix"/>
+                </Canvas.RenderTransform>
+
+                <Image Canvas.Left="0"    Canvas.Top="0"    Source="{Binding Slice00}" Stretch="None"
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                <Image Canvas.Left="4096" Canvas.Top="0"    Source="{Binding Slice10}" Stretch="None"
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                <Image Canvas.Left="0"    Canvas.Top="4096" Source="{Binding Slice01}" Stretch="None"
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                <Image Canvas.Left="4096" Canvas.Top="4096" Source="{Binding Slice11}" Stretch="None"
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
+            </Canvas>
+        </Grid>
+
+        <!-- Coordenada do mouse no mundo (canto superior direito) -->
+        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="12"
+                Background="#CC262626" CornerRadius="6" Padding="8,4"
+                Visibility="{Binding HasMap, Converter={StaticResource BoolToVis}}">
+            <TextBlock x:Name="CoordLabel" Text="X: 0   Y: 0" Foreground="#DDDDDD"
+                       FontSize="12" FontFamily="Consolas"/>
+        </Border>
+
+        <!-- Slider de zoom flutuante no canto inferior esquerdo -->
+        <Border HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="12"
+                Background="#CC262626" CornerRadius="6" Padding="8,10"
+                Visibility="{Binding HasMap, Converter={StaticResource BoolToVis}}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock x:Name="ZoomLabel" Text="100%" Foreground="#DDDDDD" FontSize="12"
+                           VerticalAlignment="Center" Margin="0,0,8,0" MinWidth="42"/>
+                <Slider x:Name="ZoomSlider" Orientation="Horizontal" Width="150" Height="24"
+                        Minimum="-6.64" Maximum="6.64" Value="0"
+                        TickFrequency="1" TickPlacement="BottomRight"
+                        ValueChanged="ZoomSlider_ValueChanged"
+                        ToolTip="Zoom (meio = 100%, esquerda = 1%, direita = 10000%)"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
