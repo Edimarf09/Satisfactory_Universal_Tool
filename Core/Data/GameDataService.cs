@@ -10,18 +10,20 @@ namespace Satisfactory_Universal_Tool.Core.Data;
 public class GameDataService
 {
     private List<GameItem> _items = new();
-    private Dictionary<string, GameItem> _byClass = new();   // o "dicionário": busca O(1) por classe
+    private Dictionary<string, GameItem> _byClass = new();   // busca O(1) por classe
+    private List<GameRecipe> _recipes = new();
 
     public IReadOnlyList<GameItem> Items => _items;
+    public IReadOnlyList<GameRecipe> Recipes => _recipes;
 
     public void Load(string docsFolder, string languageCode)
     {
         var path = Path.Combine(docsFolder, $"{languageCode}.json");   // ex.: pt-BR.json
         _items = DocsImporter.ImportItems(path);
         _byClass = _items.ToDictionary(i => i.ClassName);
+        _recipes = RecipeImporter.ImportRecipes(path);                 // <-- novo
     }
 
-    // útil lá na frente pras receitas (resolver classe de ingrediente -> item)
     public GameItem? ByClass(string className) => _byClass.GetValueOrDefault(className);
 
     public List<GameItem> Search(string query)
@@ -32,6 +34,29 @@ public class GameDataService
             : _items.Where(i => Normalize(i.DisplayName).Contains(q));
 
         return filtered.OrderBy(i => i.DisplayName).Take(500).ToList();
+    }
+
+    // Busca de receitas com os três filtros da janelinha.
+    // Alternativas vão pro fim da lista; sem texto, lista tudo.
+    public List<GameRecipe> SearchRecipes(string query, bool byName, bool byInputs, bool byOutputs)
+    {
+        var q = Normalize(query);
+        IEnumerable<GameRecipe> src = _recipes;
+
+        if (q.Length > 0)
+        {
+            // se o usuário desligar os três, ninguém casa (comportamento esperado)
+            src = src.Where(r =>
+                (byName && Normalize(r.DisplayName).Contains(q)) ||
+                (byInputs && r.Inputs.Any(i => Normalize(i.ItemName).Contains(q))) ||
+                (byOutputs && r.Outputs.Any(o => Normalize(o.ItemName).Contains(q))));
+        }
+
+        return src
+            .OrderBy(r => r.IsAlternate)          // normais primeiro
+            .ThenBy(r => r.DisplayName)
+            .Take(500)
+            .ToList();
     }
 
     // "Ácido Sulfúrico" -> "acido sulfurico" : ignora acento e caixa

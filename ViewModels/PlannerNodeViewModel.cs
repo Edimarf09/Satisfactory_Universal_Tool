@@ -8,22 +8,37 @@ public partial class ConnectorViewModel : ObservableObject
 {
     [ObservableProperty] private string _title = "";
     [ObservableProperty] private bool _isConnected;
-    [ObservableProperty] private Point _anchor;   // posição na tela, o Nodify preenche
+    [ObservableProperty] private Point _anchor;   // o Nodify preenche
 }
 
 public partial class PlannerNodeViewModel : ObservableObject
 {
-    [ObservableProperty] private string _title = "Novo nó";
+    public string TypeId { get; }          // "recipe", "sink", "storage", ...
+
+    [ObservableProperty] private string _title;
+    [ObservableProperty] private string _glyph;
     [ObservableProperty] private Point _location;
 
-    // Input/Output são COLEÇÕES no Nodify
+    // Só faz sentido quando é receita:
+    [ObservableProperty] private bool _isRecipe;
+    [ObservableProperty] private string? _recipeClass;
+    [ObservableProperty] private string? _machine;
+
     public ObservableCollection<ConnectorViewModel> Input { get; } = new();
     public ObservableCollection<ConnectorViewModel> Output { get; } = new();
 
-    public PlannerNodeViewModel()
+    public PlannerNodeViewModel(string typeId, string title, string glyph,
+                                Point location, int inputs, int outputs)
     {
-        Input.Add(new ConnectorViewModel { Title = "entra" });
-        Output.Add(new ConnectorViewModel { Title = "sai" });
+        TypeId = typeId;
+        _title = title;
+        _glyph = glyph;
+        _location = location;
+
+        for (int i = 0; i < inputs; i++)
+            Input.Add(new ConnectorViewModel { Title = inputs > 1 ? $"in {i + 1}" : "entra" });
+        for (int i = 0; i < outputs; i++)
+            Output.Add(new ConnectorViewModel { Title = outputs > 1 ? $"out {i + 1}" : "sai" });
     }
 }
 
