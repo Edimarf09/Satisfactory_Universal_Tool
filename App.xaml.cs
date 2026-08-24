@@ -18,7 +18,7 @@ public partial class App : Application
         var docsFolder    = Path.Combine(baseDir, "CommunityResources", "Docs");
         var stringsFolder = Path.Combine(baseDir, "Strings");
 
-        var lang = "pt-BR";   // idioma inicial; o seletor troca isso depois
+        var lang = "en-US";   // idioma inicial; o seletor troca isso depois
 
         Loc.SetLanguage(lang, stringsFolder);   // carrega os textos da interface
         GameData.Load(docsFolder, lang);         // carrega os itens do jogo

@@ -4,20 +4,11 @@ using Satisfactory_Universal_Tool.Core.Data;
 
 namespace Satisfactory_Universal_Tool.ViewModels;
 
-// Uma "ferramenta padrão" da coluna da esquerda (lista fixa).
 public sealed record ToolDescriptor(
-    string Id,
-    string DisplayName,
-    string Glyph,
-    string Description,
-    int Inputs,
-    int Outputs);
+    string Id, string DisplayName, string Glyph, string Description, int Inputs, int Outputs);
 
 public static class NodeCatalog
 {
-    // ===== Coluna ESQUERDA: ferramentas fixas =====
-    // Edite à vontade: a ordem aqui é a ordem na tela. Inputs/Outputs
-    // definem quantos conectores o nó nasce (ajuste conforme a semântica real).
     public static IReadOnlyList<ToolDescriptor> Tools { get; } = new[]
     {
         new ToolDescriptor("outpost",       "Outpost",            "\u2302", "Ponto de coleta / base avançada.",        0, 1),
@@ -31,12 +22,10 @@ public static class NodeCatalog
         new ToolDescriptor("dim_depot",     "Dimensional Depot",  "\u2601", "Depósito dimensional.",                   1, 0),
     };
 
-    // Cria o nó de uma ferramenta fixa, no ponto (coords do GRAFO).
     public static PlannerNodeViewModel FromTool(ToolDescriptor t, Point location)
         => new(typeId: t.Id, title: t.DisplayName, glyph: t.Glyph,
                location: location, inputs: t.Inputs, outputs: t.Outputs);
 
-    // Cria o nó de uma RECEITA: conectores viram os ingredientes/produtos reais.
     public static PlannerNodeViewModel FromRecipe(GameRecipe r, Point location)
     {
         var node = new PlannerNodeViewModel(
@@ -49,9 +38,18 @@ public static class NodeCatalog
         };
 
         foreach (var i in r.Inputs)
-            node.Input.Add(new ConnectorViewModel { Title = i.ItemName });
+            node.Input.Add(new ConnectorViewModel
+            {
+                Title = i.ItemName, IsOutput = false,
+                ItemClass = i.ItemClass, ItemName = i.ItemName
+            });
+
         foreach (var o in r.Outputs)
-            node.Output.Add(new ConnectorViewModel { Title = o.ItemName });
+            node.Output.Add(new ConnectorViewModel
+            {
+                Title = o.ItemName, IsOutput = true,
+                ItemClass = o.ItemClass, ItemName = o.ItemName
+            });
 
         return node;
     }

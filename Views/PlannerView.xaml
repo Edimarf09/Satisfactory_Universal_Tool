@@ -101,9 +101,15 @@
                              Connections="{Binding Connections}"
                              ConnectionCompletedCommand="{Binding CreateConnectionCommand}"
                              HasCustomContextMenu="True">
+
+            <nodify:NodifyEditor.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding DeleteSelectedCommand}"/>
+            </nodify:NodifyEditor.InputBindings>
+
             <nodify:NodifyEditor.ItemContainerStyle>
                 <Style TargetType="{x:Type nodify:ItemContainer}">
                     <Setter Property="Location" Value="{Binding Location, Mode=TwoWay}"/>
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
                 </Style>
             </nodify:NodifyEditor.ItemContainerStyle>
 
