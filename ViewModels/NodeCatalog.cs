@@ -29,7 +29,7 @@ public static class NodeCatalog
     public static PlannerNodeViewModel FromRecipe(GameRecipe r, Point location)
     {
         var node = new PlannerNodeViewModel(
-            typeId: "recipe", title: r.DisplayName, glyph: "\u2699",
+            typeId: "recipe", title: r.DisplayName, glyph: r.IsExtraction ? "\u26CF" : "\u2699",
             location: location, inputs: 0, outputs: 0)
         {
             IsRecipe = true,
@@ -39,17 +39,11 @@ public static class NodeCatalog
 
         foreach (var i in r.Inputs)
             node.Input.Add(new ConnectorViewModel
-            {
-                Title = i.ItemName, IsOutput = false,
-                ItemClass = i.ItemClass, ItemName = i.ItemName
-            });
+            { Title = i.ItemName, IsOutput = false, ItemClass = i.ItemClass, ItemName = i.ItemName, Rate = i.Rate });
 
         foreach (var o in r.Outputs)
             node.Output.Add(new ConnectorViewModel
-            {
-                Title = o.ItemName, IsOutput = true,
-                ItemClass = o.ItemClass, ItemName = o.ItemName
-            });
+            { Title = o.ItemName, IsOutput = true, ItemClass = o.ItemClass, ItemName = o.ItemName, Rate = o.Rate });
 
         return node;
     }

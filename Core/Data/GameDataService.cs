@@ -53,7 +53,8 @@ public class GameDataService
         }
 
         return src
-            .OrderBy(r => r.IsAlternate)          // normais primeiro
+            .OrderByDescending(r => r.IsExtraction)   // extratores no topo
+            .ThenBy(r => r.IsAlternate)               // depois normais; alternativas por último
             .ThenBy(r => r.DisplayName)
             .Take(500)
             .ToList();
