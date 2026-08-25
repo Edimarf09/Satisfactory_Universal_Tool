@@ -5,6 +5,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Satisfactory_Universal_Tool.Core.Data;
+using Satisfactory_Universal_Tool.Core.Planner;
 
 namespace Satisfactory_Universal_Tool.ViewModels;
 
@@ -15,6 +16,18 @@ public partial class PlannerViewModel : ObservableObject
 
     public IReadOnlyList<ToolDescriptor> Tools => NodeCatalog.Tools;
     public ObservableCollection<GameRecipe> RecipeResults { get; } = new();
+
+    public IReadOnlyList<IProductionCalculator> CalculationMethods => CalculatorCatalog.All;
+
+    [ObservableProperty] private IProductionCalculator _selectedMethod = CalculatorCatalog.Default;
+    [ObservableProperty] private string _solveStatus = "";
+
+    [RelayCommand]
+    private void Calculate()
+    {
+        var res = SelectedMethod.Calculate(new CalculationContext(Nodes, Connections));
+        SolveStatus = res.Message;
+    }
 
     [ObservableProperty] private bool _isPickerOpen;
     [ObservableProperty] private string _pickerSearch = "";

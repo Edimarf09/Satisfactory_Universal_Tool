@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Satisfactory_Universal_Tool.Core.Planner;
 
 namespace Satisfactory_Universal_Tool.ViewModels;
 
@@ -22,18 +21,6 @@ public partial class PlannerNodeViewModel : ObservableObject
 {
     public string TypeId { get; }
 
-    public IReadOnlyList<IProductionCalculator> CalculationMethods => CalculatorCatalog.All;
-
-    [ObservableProperty] private IProductionCalculator _selectedMethod = CalculatorCatalog.Default;
-    [ObservableProperty] private string _solveStatus = "";
-
-    [RelayCommand]
-    private void Calculate()
-    {
-        var res = SelectedMethod.Calculate(new CalculationContext(Nodes, Connections));
-        SolveStatus = res.Message;
-    }
-
     [ObservableProperty] private string _title;
     [ObservableProperty] private string _glyph;
     [ObservableProperty] private Point _location;
@@ -42,7 +29,7 @@ public partial class PlannerNodeViewModel : ObservableObject
     [ObservableProperty] private bool _isRecipe;
     [ObservableProperty] private string? _recipeClass;
     [ObservableProperty] private string? _machine;
-
+    [ObservableProperty] private double _targetMachines;   // prioridade sobre o alvo/min
     [ObservableProperty] private double _targetRate;                 // usado pelo método Grafo
 
     [ObservableProperty]

@@ -200,29 +200,37 @@
             <nodify:NodifyEditor.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:PlannerNodeViewModel}">
                     <nodify:Node Input="{Binding Input}"
-                            Output="{Binding Output}">
+                                 Output="{Binding Output}">
                         <nodify:Node.Header>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Glyph}"
-                                        FontSize="14"
-                                        Margin="0,0,6,0"/>
+                                           FontSize="14"
+                                           Margin="0,0,6,0"/>
                                 <TextBlock Text="{Binding Title}"
-                                        FontWeight="SemiBold"/>
+                                           FontWeight="SemiBold"/>
                                 <TextBlock Text="{Binding MachinesText}"
-                                        Foreground="#7CD992"
+                                           Foreground="#7CD992"
                                            FontWeight="SemiBold"
-                                        Margin="8,0,0,0"/>
+                                           Margin="8,0,0,0"/>
                             </StackPanel>
                         </nodify:Node.Header>
 
                         <StackPanel Orientation="Horizontal"
                                 Margin="0,2">
-                            <TextBlock Text="alvo/min:"
+                            <TextBlock Text="máq:"
                                     Foreground="#8A9098"
                                     FontSize="10"
                                        VerticalAlignment="Center"
                                     Margin="0,0,4,0"/>
-                            <TextBox Width="48"
+                            <TextBox Width="40"
+                                    FontSize="11"
+                                     Text="{Binding TargetMachines, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="alvo/min:"
+                                    Foreground="#8A9098"
+                                    FontSize="10"
+                                       VerticalAlignment="Center"
+                                    Margin="8,0,4,0"/>
+                            <TextBox Width="44"
                                     FontSize="11"
                                      Text="{Binding TargetRate, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
@@ -235,8 +243,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Title}"/>
                                             <TextBlock Text="{Binding RateText}"
-                                                    Foreground="#8A9098"
-                                                    Margin="5,0,0,0"/>
+                                                       Foreground="#8A9098"
+                                                       Margin="5,0,0,0"/>
                                         </StackPanel>
                                     </nodify:NodeInput.Header>
                                 </nodify:NodeInput>
@@ -250,8 +258,8 @@
                                     <nodify:NodeOutput.Header>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding RateText}"
-                                                    Foreground="#8A9098"
-                                                    Margin="0,0,5,0"/>
+                                                       Foreground="#8A9098"
+                                                       Margin="0,0,5,0"/>
                                             <TextBlock Text="{Binding Title}"/>
                                         </StackPanel>
                                     </nodify:NodeOutput.Header>
