@@ -3,18 +3,19 @@ using Satisfactory_Universal_Tool.ViewModels;
 
 namespace Satisfactory_Universal_Tool.Core.Planner;
 
-// O grafo que qualquer método recebe.
+public enum PlannerDisplayMode { Machines, Rate }
+
 public sealed record CalculationContext(
     IReadOnlyList<PlannerNodeViewModel> Nodes,
-    IReadOnlyList<ConnectionViewModel> Connections);
+    IReadOnlyList<ConnectionViewModel> Connections,
+    PlannerDisplayMode Mode);
 
 public sealed record CalculationResult(bool Ok, string Message);
 
-// Um método de cálculo. Para criar um novo, implemente isto e registre no catálogo.
 public interface IProductionCalculator
 {
-    string Id { get; }             // estável, ex.: "graph"
-    string DisplayName { get; }    // rótulo no seletor
-    string Description { get; }     // ajuda/tooltip
+    string Id { get; }
+    string DisplayName { get; }
+    string Description { get; }
     CalculationResult Calculate(CalculationContext ctx);
 }
